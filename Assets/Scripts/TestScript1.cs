@@ -7,5 +7,6 @@ public class TestScript1 : MonoBehaviour
     {
         Debug.Log("Test hehe");
         // Kommentar
+        // Noe annet
     }
 }
