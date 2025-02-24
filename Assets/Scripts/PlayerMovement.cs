@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
     // Hvor lang tid skal spilleren IKKE få lov til å hoppe
     [SerializeField] private float jumpRecoveryTime;
+
+    // Lyd som skal spilles av hvis vi krasjer.
+    [SerializeField] private AudioClip crashSFX;
 
 
     private void Awake()
@@ -72,8 +76,14 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForSeconds(recoveryTime);
             canJump = true;
         }
+    }
 
 
+    // Laster scenen vår på nytt om vi kolliderer med noe.
+    private void OnCollisionEnter(Collision collision)
+    {
+        AudioManager.instance.PlayCrashSFX(crashSFX);
+        SceneManager.LoadScene(0);
     }
 
 
